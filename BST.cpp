@@ -151,6 +151,85 @@ void BST::clearTree(TNode *tmp) {
 	}
 }
 
+
+TNode *BST::removeNoKids(TNode *tmp){
+	if (root == tmp){
+		root = NULL;
+	} else if(tmp->parent->left == tmp){
+		tmp->parent->left = NULL;
+	} else if(tmp->parent->right == tmp){
+		tmp->parent->right = NULL;
+	}
+	free(tmp);
+	return tmp;
+}
+
+
+TNode *BST::removeOneKid(TNode *tmp, bool leftFlag){
+	TNode *c = tmp->right;
+	if(leftFlag){
+		c = tmp->left;
+	}
+
+	if (root == tmp){
+		root = c;
+	} else if (tmp->parent->left == tmp){
+		c->parent = tmp->parent;
+		c->parent->left = NULL;
+	} else if (tmp->parent->right == tmp){
+		c->parent = tmp->parent;
+		c->parent->right = NULL;
+	}
+	free(tmp);
+	return tmp;
+}
+
+
+TNode *BST::remove(string s){
+	TNode *tmp = find(s);
+	if(tmp->left == NULL && tmp->right == NULL){
+		removeNoKids(tmp);
+	} else if (tmp->left == NULL){
+		removeOneKid(tmp, false);
+	} else if (tmp->right == NULL){
+		removeOneKid(tmp, true);
+	} else {
+		TNode *rep = tmp->left;
+		while(rep->right != NULL){
+			rep = rep->right;
+		}
+		Phrase *val = rep->data;
+		if(rep->left == NULL){
+			removeNoKids(rep);
+		} else {
+			removeOneKid(rep, true);
+		}
+		if (root == tmp){
+			root = new TNode(val->phrase);
+			root->left = tmp->left;
+			root->right = tmp->right;
+			root->left->parent = root;
+			root->right->parent = root;
+		} else if (tmp->parent->left == tmp){
+				tmp->parent->left  = new TNode(val->phrase);
+				tmp->left->parent = tmp->parent;
+				tmp->right->parent = tmp->parent;
+				tmp->parent->left->left = tmp->left;
+				tmp->parent->left->right = tmp->right;
+		} else if (tmp->parent->right == tmp){
+			tmp->parent->right  = new TNode(val->phrase);
+			tmp->left->parent = tmp->parent;
+			tmp->right->parent = tmp->parent;
+			tmp->parent->right->left = tmp->left;
+			tmp->parent->right->right = tmp->right;
+		}
+		free(tmp);
+		return tmp;
+	}
+
+}
+
+
 void BST::setHeight(TNode *n){
 	if (n->left == NULL && n->right == NULL){
 		n->height = 1;
