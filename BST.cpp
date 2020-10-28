@@ -188,12 +188,16 @@ TNode *BST::removeOneKid(TNode *tmp, bool leftFlag){
 TNode *BST::remove(string s){
 	TNode *tmp = find(s);
 	if(tmp->left == NULL && tmp->right == NULL){
+		cout << "Removing no kids" << endl;
 		removeNoKids(tmp);
 	} else if (tmp->left == NULL){
+		cout << "Removing one kids" << endl;
 		removeOneKid(tmp, false);
 	} else if (tmp->right == NULL){
+		cout << "Removing one kids" << endl;
 		removeOneKid(tmp, true);
 	} else {
+		cout << "Removing two kids" << endl;
 		TNode *rep = tmp->left;
 		while(rep->right != NULL){
 			rep = rep->right;
