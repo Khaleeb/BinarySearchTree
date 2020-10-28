@@ -46,6 +46,7 @@ bool BST::insert(string s){
 			}
 		}
 	}
+	return false;
 }
 
 TNode *BST::find(string s){
@@ -73,6 +74,16 @@ void BST::printTreeIO() {
 	}
 }
 
+void BST::printTreeIO(TNode *n){
+	if (n->left){
+		printTreeIO(n->left);
+	}
+	cout << n->data->phrase << ", " << n->height << endl;
+	if(n->right){
+		printTreeIO(n->right);
+	}
+}
+
 
 void BST::printTreePre() {
 	if (root == NULL ) {
@@ -85,6 +96,17 @@ void BST::printTreePre() {
 }
 
 
+void BST::printTreePre(TNode *n){
+	cout << n->data->phrase << ", " << n->height << endl;
+	if (n->left){
+		printTreePre(n->left);
+	}
+	if (n->right){
+		printTreePre(n->right);
+	}
+}
+
+
 void BST::printTreePost() {
 	if (root == NULL ) {
 		cout << "Empty Tree" << endl;
@@ -93,6 +115,17 @@ void BST::printTreePost() {
 		cout << endl<<"Printing PostOrder:" <<endl;
 		printTreePost(root);
 	}
+}
+
+
+void BST::printTreePost(TNode *n){
+	if (n->left){
+		printTreePost(n->left);
+	}
+	if (n->right){
+		printTreePost(n->right);
+	}
+	cout << n->data->phrase << ", " << n->height << endl;
 }
 
 
