@@ -150,3 +150,20 @@ void BST::clearTree(TNode *tmp) {
 		delete(tmp);
 	}
 }
+
+void BST::setHeight(TNode *n){
+	if (n->left == NULL && n->right == NULL){
+		n->height = 1;
+	} else if (n->right == NULL){
+		n->height = n->left->height + 1;
+	} else if (n->left == NULL){
+		n->height = n->right->height + 1;
+	} else {
+		int t = n->left->height;
+		if (n->right->height > t){
+			t = n->right->height;
+		}
+		n->height = t + 1;
+	}
+	setHeight(n->parent);
+}
