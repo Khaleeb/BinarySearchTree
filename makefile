@@ -5,7 +5,7 @@ bstmain.o: bstmain.cpp
 	g++ -c bstmain.cpp
 
 BST.o: BST.cpp BST.hpp
-	g++ -c bst.cpp
+	g++ -c BST.cpp
 
 Phrase.o: Phrase.cpp Phrase.hpp
 	g++ -c Phrase.cpp
