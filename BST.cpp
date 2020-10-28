@@ -226,7 +226,7 @@ TNode *BST::remove(string s){
 		free(tmp);
 		return tmp;
 	}
-
+	return NULL;
 }
 
 
