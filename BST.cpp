@@ -175,10 +175,10 @@ TNode *BST::removeOneKid(TNode *tmp, bool leftFlag){
 		root = c;
 	} else if (tmp->parent->left == tmp){
 		c->parent = tmp->parent;
-		c->parent->left = NULL;
+		c->parent->left = c;
 	} else if (tmp->parent->right == tmp){
 		c->parent = tmp->parent;
-		c->parent->right = NULL;
+		c->parent->right = c;
 	}
 	free(tmp);
 	return tmp;
