@@ -244,5 +244,7 @@ void BST::setHeight(TNode *n){
 		}
 		n->height = t + 1;
 	}
-	setHeight(n->parent);
+	if(n->parent){
+		setHeight(n->parent);
+	}
 }
