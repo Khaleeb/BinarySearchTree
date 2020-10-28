@@ -6,6 +6,12 @@
  */
 
 #include "BST.hpp"
+#include "TNode.hpp"
+#include "Phrase.hpp"
+#include "BST.cpp"
+#include "TNode.cpp"
+#include "Phrase.cpp"
+
 #include <iostream>
 using namespace std;
 
@@ -54,4 +60,3 @@ int main() {
 	tree->clearTree();
 	return 0;
 }
-
