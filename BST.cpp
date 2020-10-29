@@ -226,14 +226,14 @@ TNode *BST::remove(string s){
 				tmp->right->parent = tmp->parent;
 				tmp->parent->left->left = tmp->left;
 				tmp->parent->left->right = tmp->right;
-				setHeight(tmp->parent);
+				setHeight(tmp->parent->left);
 		} else if (tmp->parent->right == tmp){
 			tmp->parent->right  = new TNode(val->phrase);
 			tmp->left->parent = tmp->parent;
 			tmp->right->parent = tmp->parent;
 			tmp->parent->right->left = tmp->left;
 			tmp->parent->right->right = tmp->right;
-			setHeight(tmp->parent);
+			setHeight(tmp->parent->right);
 		}
 		free(tmp);
 		return tmp;
