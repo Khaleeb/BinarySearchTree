@@ -208,9 +208,12 @@ TNode *BST::remove(string s){
 			root = new TNode(val->phrase);
 			root->left = tmp->left;
 			root->right = tmp->right;
-			cout << root->data->phrase << endl;
-			tmp->left->parent = root;
-			tmp->right->parent = root;
+			if(tmp->left){
+				tmp->left->parent = root;
+			}
+			if(tmp->right){
+				tmp->right->parent = root;
+			}
 		} else if (tmp->parent->left == tmp){
 				tmp->parent->left  = new TNode(val->phrase);
 				tmp->left->parent = tmp->parent;
