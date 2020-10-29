@@ -157,8 +157,10 @@ TNode *BST::removeNoKids(TNode *tmp){
 		root = NULL;
 	} else if(tmp->parent->left == tmp){
 		tmp->parent->left = NULL;
+		setHeight(tmp->parent);
 	} else if(tmp->parent->right == tmp){
 		tmp->parent->right = NULL;
+		setHeight(tmp->parent);
 	}
 	free(tmp);
 	return tmp;
@@ -173,12 +175,15 @@ TNode *BST::removeOneKid(TNode *tmp, bool leftFlag){
 
 	if (root == tmp){
 		root = c;
+		setHeight(root);
 	} else if (tmp->parent->left == tmp){
 		c->parent = tmp->parent;
 		c->parent->left = c;
+		setHeight(tmp->parent);
 	} else if (tmp->parent->right == tmp){
 		c->parent = tmp->parent;
 		c->parent->right = c;
+		setHeight(tmp->parent);
 	}
 	free(tmp);
 	return tmp;
@@ -214,18 +219,21 @@ TNode *BST::remove(string s){
 			if(tmp->right){
 				tmp->right->parent = root;
 			}
+			setHeight(root);
 		} else if (tmp->parent->left == tmp){
 				tmp->parent->left  = new TNode(val->phrase);
 				tmp->left->parent = tmp->parent;
 				tmp->right->parent = tmp->parent;
 				tmp->parent->left->left = tmp->left;
 				tmp->parent->left->right = tmp->right;
+				setHeight(tmp->parent);
 		} else if (tmp->parent->right == tmp){
 			tmp->parent->right  = new TNode(val->phrase);
 			tmp->left->parent = tmp->parent;
 			tmp->right->parent = tmp->parent;
 			tmp->parent->right->left = tmp->left;
 			tmp->parent->right->right = tmp->right;
+			setHeight(tmp->parent);
 		}
 		free(tmp);
 		return tmp;
@@ -235,20 +243,33 @@ TNode *BST::remove(string s){
 
 
 void BST::setHeight(TNode *n){
+	bool pass = false;
 	if (n->left == NULL && n->right == NULL){
+		if(n->height == 1){
+			pass = true;
+		}
 		n->height = 1;
 	} else if (n->right == NULL){
+		if (n->height == n->left->height + 1){
+			pass = true;
+		}
 		n->height = n->left->height + 1;
 	} else if (n->left == NULL){
+		if (n->height == n->right->height + 1){
+			pass = true;
+		}
 		n->height = n->right->height + 1;
 	} else {
 		int t = n->left->height;
 		if (n->right->height > t){
 			t = n->right->height;
 		}
+		if (n->height == t + 1){
+			pass = true;
+		}
 		n->height = t + 1;
 	}
-	if(n->parent){
+	if(n->parent && !pass){
 		setHeight(n->parent);
 	}
 }
