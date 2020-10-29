@@ -243,6 +243,7 @@ TNode *BST::remove(string s){
 
 
 void BST::setHeight(TNode *n){
+	cout << "Setting Height: " << n->data->phrase << endl;
 	bool pass = false;
 	if (n->left == NULL && n->right == NULL){
 		if(n->height == 1){
