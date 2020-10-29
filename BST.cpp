@@ -222,17 +222,25 @@ TNode *BST::remove(string s){
 			setHeight(root);
 		} else if (tmp->parent->left == tmp){
 				tmp->parent->left  = new TNode(val->phrase);
-				tmp->left->parent = tmp->parent;
-				tmp->right->parent = tmp->parent;
-				tmp->parent->left->left = tmp->left;
-				tmp->parent->left->right = tmp->right;
+				if(tmp->left){
+					tmp->left->parent = tmp->parent;
+					tmp->parent->left->left = tmp->left;
+				}
+				if(tmp->right){
+					tmp->right->parent = tmp->parent;
+					tmp->parent->left->right = tmp->right;
+				}
 				setHeight(tmp->parent->left);
 		} else if (tmp->parent->right == tmp){
 			tmp->parent->right  = new TNode(val->phrase);
-			tmp->left->parent = tmp->parent;
-			tmp->right->parent = tmp->parent;
-			tmp->parent->right->left = tmp->left;
-			tmp->parent->right->right = tmp->right;
+			if(tmp->left){
+				tmp->left->parent = tmp->parent;
+				tmp->parent->right->left = tmp->left;
+			}
+			if(tmp->right){
+				tmp->right->parent = tmp->parent;
+				tmp->parent->right->right = tmp->right;
+			}
 			setHeight(tmp->parent->right);
 		}
 		free(tmp);
@@ -243,7 +251,6 @@ TNode *BST::remove(string s){
 
 
 void BST::setHeight(TNode *n){
-	cout << "Setting Height: " << n->data->phrase << endl;
 	bool pass = false;
 	if (n->left == NULL && n->right == NULL){
 		if(n->height == 1){
