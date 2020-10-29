@@ -208,7 +208,7 @@ TNode *BST::remove(string s){
 			root = new TNode(val->phrase);
 			root->left = tmp->left;
 			root->right = tmp->right;
-			cout << "TRIGGERED" << endl;
+			cout << root->data->phrase << endl;
 			tmp->left->parent = root;
 			tmp->right->parent = root;
 		} else if (tmp->parent->left == tmp){
