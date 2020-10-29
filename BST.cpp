@@ -205,8 +205,8 @@ TNode *BST::remove(string s){
 			removeOneKid(rep, true);
 		}
 		if (root == tmp){
-			cout << "TRIGGERED" << endl;
 			root = new TNode(val->phrase);
+			cout << "TRIGGERED" << endl;
 			root->left = tmp->left;
 			root->right = tmp->right;
 			root->left->parent = root;
